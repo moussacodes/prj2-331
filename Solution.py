@@ -1,9 +1,8 @@
+from Traversals import bfs_path
 import heapq
 from collections import deque
 from Simulator import Simulator
 import sys
-
-import heapq
 
 class Solution:
     def __init__(self, problem, isp, graph, info):
@@ -25,6 +24,8 @@ class Solution:
         paying_clients = [c for c in list_clients if get_payment_amount(c) > 0]
         sorted_clients = sorted(paying_clients, key=get_payment_amount, reverse=True)
 
+        base_paths = bfs_path(self.graph, self.isp, list_clients)
+
         node_usage = {node: 0 for node in self.graph}
 
         penalty_mult = {}
@@ -33,6 +34,22 @@ class Solution:
                 penalty_mult[v] = 2.5 / b
 
         for client in sorted_clients:
+            fast_path = base_paths.get(client, [])
+            is_congested = False
+
+            for node in fast_path:
+                b = bws.get(node, float('inf'))
+                if b != float('inf') and b > 0:
+                    if node_usage[node] >= b:
+                        is_congested = True
+                        break
+
+            if not is_congested and fast_path:
+                paths[client] = fast_path
+                for node in fast_path:
+                    node_usage[node] += 1
+                continue
+            
             pq = [(0, self.isp)]
             dist = {self.isp: 0}
             parent = {self.isp: None}

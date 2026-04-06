@@ -1,0 +1,18 @@
+updated optimiized second algorithm algorithm stats (hybrid fast-path/fallback algorithm):
+
+Your Solution
+=============================================
+Revenue: 13603290.0
+
+
+Minutes           : 0
+Seconds           : 34
+Milliseconds      : 75
+Ticks             : 340756530
+TotalDays         : 0.000394394131944444
+TotalHours        : 0.00946545916666667
+TotalMinutes      : 0.56792755
+TotalSeconds      : 34.075653
+TotalMilliseconds : 34075.653
+
+first submitted algorithm stats (modified dijkstras):
